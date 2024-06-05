@@ -24,12 +24,16 @@
                             </div>
                         </div>
                         <div class="flex flex-row gap-x-2 ">
-                            <a href="#" class="py-3 px-5 rounded-full bg-indigo-950 text-white">Add Tools</a>
+                            <a href="{{ route('admin.project_tools.create', $project) }}" class="py-3 px-5 rounded-full bg-indigo-950 text-white">Add Tools</a>
                         <a href="#" class="py-3 px-5 rounded-full bg-indigo-950 text-white">Add Screenshot</a>
                         </div>
                         <div class="flex flex-row gap-x-2 ">
                             <a href="{{ route('admin.projects.edit', $project) }}" class="py-3 px-5 rounded-full bg-indigo-500 text-white">Edit</a>
-                        <a href="#" class="py-3 px-5 rounded-full bg-red-500 text-white">Delete</a>
+                            <form action="{{ route('admin.projects.destroy', $project) }}" method="POST"> 
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="py-3 px-5 rounded-full bg-red-500 text-white">Delete</button>
+                            </form>
                         </div>
                     </div>
                     @empty

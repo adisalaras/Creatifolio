@@ -17,17 +17,17 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('admin.projects.index')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link :href="route('admin.projects.index')" :active="request()->routeIs('projects')">
                         {{ __('Project') }}
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('admin.tools.index')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link :href="route('admin.tools.index')" :active="request()->routeIs('tools')">
                         {{ __('Tools') }}
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link :href="route('admin.tools.index')" :active="request()->routeIs('orders')">
                         {{ __('Orders') }}
                     </x-nav-link>
                 </div>

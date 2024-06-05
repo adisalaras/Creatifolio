@@ -16,7 +16,9 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::orderBy('id', 'desc')->get();
+        $projects = Project::orderBy('id', 'desc')->get(); //ambil data yang deleted at=null
+        
+        //$projects = Project::withTrashed()->orderBy('id', 'desc')->get(); //ambil semua data baik deleted at=null/sudah dihapus
         return view('admin.projects.index', [
             'projects'=> $projects //compact data
         ]);
@@ -122,6 +124,14 @@ class ProjectController extends Controller
      */
     public function destroy(project $project)
     {
-        //
+        try{
+            $project->delete();
+            return redirect()->back()->with('succes','Projects deleted sussesfully');
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+
+            return redirect()->back()->with('error', 'System eror'.$e->getMessage());
+        }
     }
 }

@@ -3,6 +3,8 @@
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ProjectToolController;
+use App\Http\Controllers\ToolController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,7 +33,9 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('admin')->name('admin.')->group(function(){
         Route::resource('projects', ProjectController::class); 
-        Route::resource('tools', ProjectController::class); 
+        Route::resource('tools', ToolController::class);
+        Route::resource('project_tools', ProjectToolController::class);
+         
     });
     
 });
