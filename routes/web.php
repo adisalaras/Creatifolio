@@ -34,7 +34,11 @@ Route::middleware('auth')->group(function () {
     Route::prefix('admin')->name('admin.')->group(function(){
         Route::resource('projects', ProjectController::class); 
         Route::resource('tools', ToolController::class);
-        Route::resource('project_tools', ProjectToolController::class);
+        //Route::resource('project_tools', ProjectToolController::class); //tidak bisa pake ini, dikarenakan model project sama dengan projects
+
+        //route project tool
+        Route::get('/tools/assign/{project}', [ProjectToolController::class, 'create'])->name('project.assign.tool'); //tampil pada index project_tool
+        Route::post('/tools/assign/save/{project}', [ProjectToolController::class, 'store'])->name('project.assign.tool.store');
          
     });
     
