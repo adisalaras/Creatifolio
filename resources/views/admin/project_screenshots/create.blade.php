@@ -17,12 +17,12 @@
                     </ul>
                 </div>
                 @endif
-                <form action="{{ route('admin.project.assign.tool.store', $project) }}" enctype="multipart/form-data" method="POST">
+                <form action="{{ route('admin.project_screenshots.store', $project) }}" enctype="multipart/form-data" method="POST">
                     @csrf
                     {{-- {{ $project->id }} //mengecek apakah data 4project ada --}}
                     <div class="flex flex-col gap-y-5">
                         <h1 class="text-3xl text-indigo-950 font-bold">
-                        Assign Tool
+                        Add Project Screenshots
                         </h1>
 
                         {{-- copy html from index blade project --}}
@@ -33,44 +33,31 @@
                                 <p class="text-sm text-slate-400">{{ $project->category }}</p>
                             </div>
                         </div>
-
-
+                        
                         <div class="flex flex-col gap-y-2">
-                            <h3>Tools</h3>
-                                <select name="tool_id" id="tool_id">
-                                    <option value="">Choose Tools below</option>
-                                    @forelse($tools as $tool)
-                                    
-                                    <option value="{{ $tool->id }}">{{ $tool->name }}</option>
-                                    @empty
-                                    <option value="">Choose Tools below</option>
-                                    @endforelse
-                                </select>
+                            <h3>Screenshot</h3>
+                            <input type="file" id="screenshot" name="screenshot">
                         </div>
                         
-                        <button type="submit" class="py-4 w-full rounded-full bg-violet-700 font-bold text-white">Assign Tool</button>
+                        <button type="submit" class="py-4 w-full rounded-full bg-violet-700 font-bold text-white">Add Screenshot</button>
                     </div>
                 </form>
                 <hr class="my-10">
                 <h3 class="text-3xl text-indigo-950 font-bold">
-                    Existing Tools
+                    Existing Screenshots
                 </h3>
 
                 {{-- ambil dari index tools --}}
                 <div class="flex flex-col gap-y-5">
-                    @forelse($project->tools as $tool)
+                    @forelse($project->screenshots as $screenshot)
                     {{-- foreach data project --}}
                     <div class="item-project flex flex-row items-center justify-between">
                         <div class="flex flex-row gap-x-4 items-center">
-                            <img src="{{ Storage::url($tool->logo) }}" alt="" class="object-cover w-[120px] h-90px rounded-2xl">
-                            <div class="flex flex-col gap-y-1">
-                                <h3 class="font-bold text-xl">{{ $tool->name }}</h3>
-                                <p class="text-sm text-slate-400">{{ $tool->tagline }}</p>
-                            </div>
+                            <img src="{{ Storage::url($screenshot->screenshot) }}" alt="" class="object-cover w-[120px] h-90px rounded-2xl">
                         </div>
                         {{-- {{ $tool->pivot->id }} //ngecek project_tool id masuk gak --}}
                         <div class="flex flex-row gap-x-2 "> 
-                            <form action="{{ route('admin.project_tools.destroy', $tool->pivot->id) }}" method="POST">
+                            <form action="{{ route('admin.project_screenshots.destroy', $screenshot->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="py-3 px-5 rounded-full bg-red-500 text-white">Delete</button>

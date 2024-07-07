@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('My Tools') }}
+            {{ __('My Testimonials') }}
         </h2>
     </x-slot>
 
@@ -10,24 +10,24 @@
             {{-- flex coll atas bawah --}}
             {{-- flex row kiri ke kanan --}}
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-10 flex flex-col">
-                <a href="{{ route('admin.tools.create') }}" class="w-fit py-4 px-10 text-white bg-indigo-950 rounded-full font-bold">Add new Tools</a>
+                <a href="{{ route('admin.testimonials.create') }}" class="w-fit py-4 px-10 text-white bg-indigo-950 rounded-full font-bold">Add new Testimonials</a>
                 <hr class="my-10">
                 <div class="flex flex-col gap-y-5">
-                    @forelse($tools as $tool)
+                    @forelse($testimonials as $testimonial)
                     {{-- foreach data project --}}
                     <div class="item-project flex flex-row items-center justify-between">
                         <div class="flex flex-row gap-x-4 items-center">
-                            <img src="{{ Storage::url($tool->logo) }}" alt="" class="object-cover w-[120px] h-90px rounded-2xl">
+                            <img src="{{ Storage::url($testimonial->logo) }}" alt="" class="object-cover w-[120px] h-90px rounded-2xl">
                             <div class="flex flex-col gap-y-1">
-                                <h3 class="font-bold text-xl">{{ $tool->name }}</h3>
-                                <p class="text-sm text-slate-400">{{ $tool->tagline }}</p>
+                                <h3 class="font-bold text-xl">{{ $testimonial->name }}</h3>
+                                <p class="text-sm text-slate-400">{{ $testimonial->role }}</p>
                             </div>
                         </div>
                         
                         <div class="flex flex-row gap-x-2 ">
-                            <a href="{{ route('admin.tools.edit', $tool) }}" class="py-3 px-5 rounded-full bg-indigo-500 text-white">Edit</a>
+                            <a href="{{ route('admin.testimonials.edit', $testimonial) }}" class="py-3 px-5 rounded-full bg-indigo-500 text-white">Edit</a>
                             
-                            <form action="{{ route('admin.tools.destroy', $tool) }}" method="POST">
+                            <form action="{{ route('admin.testimonials.destroy', $testimonial) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="py-3 px-5 rounded-full bg-red-500 text-white">Delete</button>

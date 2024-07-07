@@ -12,7 +12,12 @@ class ProjectOrderController extends Controller
      */
     public function index()
     {
-        //
+        $orders = ProjectOrder::orderBy('id', 'desc')->get(); //ambil data yang deleted at=null
+        
+        //$projects = Project::withTrashed()->orderBy('id', 'desc')->get(); //ambil semua data baik deleted at=null/sudah dihapus
+        return view('admin.project_orders.index', [
+            'orders'=> $orders //compact data
+        ]);
     }
 
     /**
@@ -36,7 +41,10 @@ class ProjectOrderController extends Controller
      */
     public function show(ProjectOrder $projectOrder)
     {
-        //
+        
+        return view('admin.project_orders.show', [
+            'projectOrder'=> $projectOrder //compact data
+        ]);
     }
 
     /**

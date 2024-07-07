@@ -15,6 +15,8 @@ class Tool extends Model
     ];
 
     public function projects(){
-        return $this->belongsToMany(Project::class, 'project_tools', 'tool_id','project_id');
+        return $this->belongsToMany(Project::class, 'project_tools', 'tool_id','project_id')
+        ->wherePivot('deleted_at')
+        ->withPivot('id');
     }
 }

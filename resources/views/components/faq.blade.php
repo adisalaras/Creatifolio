@@ -8,7 +8,7 @@
                 <h2 class="font-extrabold text-[50px] leading-[70px]">Frequently Asked Questions</h2>
                 <p class="text-lg text-[#878C9C]">If you have any question please contact me.</p>
             </div>
-            <a href="" class="bg-portto-black font-bold text-lg text-white rounded-full p-[14px_30px] w-fit transition-all duration-300 hover:bg-white hover:text-portto-black hover:ring hover:ring-portto-black">Contact Me</a>
+            <a href="{{ route('front.book') }}" class="bg-portto-black font-bold text-lg text-white rounded-full p-[14px_30px] w-fit transition-all duration-300 hover:bg-white hover:text-portto-black hover:ring hover:ring-portto-black">Contact Me</a>
         </div>
         <div class="flex flex-col gap-[30px] w-[603px] shrink-0">
             <div class="flex flex-col p-5 rounded-2xl bg-[#F4F5F8] w-full">

@@ -2,21 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tool;
+use App\Models\Testimonial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class ToolController extends Controller
+class TestimonialController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        
-        $tools = Tool::orderBy('id', 'desc')->get();
-        return view('admin.tools.index', [
-            'tools'=> $tools //compact data
+        $testimonials = Testimonial::orderBy('id', 'desc')->get();
+        return view('admin.testimonials.index', [
+            'testimonials'=> $testimonials //compact data
         ]);
     }
 
@@ -25,7 +24,7 @@ class ToolController extends Controller
      */
     public function create()
     {
-        return view('admin.tools.create');
+        return view('admin.testimonials.create');
     }
 
     /**
@@ -35,21 +34,23 @@ class ToolController extends Controller
     {
         $validated= $request->validate([
             'name'=> 'required|string|max:255',
-            'tagline' => 'required|string',
+            'role'=> 'required|string|max:255',
+            'testimony'=> 'required|string|max:65535',
             'logo' => 'required|image|mimes:png|max:2048',
+            'rate' => 'required|numeric',
         ]);
 
         DB::beginTransaction();
         try{
             if($request->hasFile('logo')){
-                $path = $request->file('logo')->store('tools','public');
+                $path = $request->file('logo')->store('testimonials','public');
                 $validated['logo']=$path;
             }
             
-            $newProject =Tool::create($validated);
+            $newProject =Testimonial::create($validated);
 
             DB::commit();
-            return redirect()->route('admin.tools.index')->with('succes', 'Tool Created Succesfully');
+            return redirect()->route('admin.testimonials.index')->with('succes', 'Testimonials Created Succesfully');
         }
         catch(\Exception $e){
             DB::rollBack();
@@ -61,7 +62,7 @@ class ToolController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Tool $tool)
+    public function show(Testimonial $testimonial)
     {
         //
     }
@@ -69,52 +70,53 @@ class ToolController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Tool $tool)
+    public function edit(Testimonial $testimonial)
     {
-        return view('admin.tools.edit', [
-            'tool'=> $tool //compact data
+        return view('admin.testimonials.edit', [
+            'testimonial'=> $testimonial //compact data
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Tool $tool)
+    public function update(Request $request, Testimonial $testimonial)
     {
         $validated= $request->validate([
             'name'=> 'required|string|max:255',
-            'tagline' => 'required|string',
+            'role' => 'required|string',
             'logo' => 'sometimes|image|mimes:png|max:2048',
-
+            'testimony' =>'required|string',
+            'rate' => 'required|numeric',
+            
         ]);
 
         DB::beginTransaction();
         try{
             if($request->hasFile('logo')){
-                $path = $request->file('logo')->store('tools','public');
+                $path = $request->file('logo')->store('testimonials','public');
                 $validated['logo']=$path;
             }
 
-            $tool->update($validated);
+            $testimonial->update($validated);
 
             DB::commit();
-            return redirect()->route('admin.tools.index')->with('succes', 'Tools Created Succesfully');
+            return redirect()->route('admin.testimonials.index')->with('succes', 'Testimonials Created Succesfully');
         }
         catch(\Exception $e){
             DB::rollBack();
 
             return redirect()->back()->with('error', 'System eror'.$e->getMessage());
         }
-    
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Tool $tool)
+    public function destroy(Testimonial $testimonial)
     {
         try{
-            $tool->delete();
+            $testimonial->delete();
             return redirect()->back()->with('succes','Tool deleted sussesfully');
         }
         catch(\Exception $e){
